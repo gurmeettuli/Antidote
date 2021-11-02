@@ -14,7 +14,6 @@ function App() {
   const [info, setInformation] = useState([]);
   const [inactiveValues, setInactiveValues] = useState([]);
   const [randomizedValues, setRandomizedValues] = useState([]);
-  const [allValue, setAllValue] = useState(0);
   // NOTE: This value can be used in the future for another tab
   // eslint-disable-next-line no-unused-vars
   const [unassignedValues, setUnassignedValues] = useState([]);
@@ -42,20 +41,24 @@ function App() {
   }, []);
 
   const handleRandomizedClick = (input) => {
-    setInformation([...info, input]);
+    setInformation([
+      ...info.filter(
+        (obj) => obj.location.locationId !== input.location.locationId
+      ),
+      input,
+    ]);
+    // setInformation([...info, input]);
     setRandomizedValues([...randomizedValues, input]);
   };
   const handleInactiveClick = (input) => {
     setInformation([...info, input]);
-    setInactiveValues([inactiveValues, input]);
+    setInactiveValues([...inactiveValues, input]);
   };
 
   const arrangeItems = (initialValues) => {
-    // const value = [...initialValues];
     const one = [],
       two = [],
       three = [];
-    setAllValue(initialValues.length);
     initialValues.forEach((val) => {
       if (val.status === "inactive") {
         one.push(val);
@@ -85,7 +88,7 @@ function App() {
               label={"Randomized (" + randomizedValues.length + ")"}
               value="2"
             />
-            <Tab label={"All (" + allValue + ")"} value="3" />
+            <Tab label={"All (" + info.length + ")"} value="3" />
           </Tabs>
         </Box>
         <TabPanel value="1">

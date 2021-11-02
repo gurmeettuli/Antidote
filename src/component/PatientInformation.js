@@ -5,7 +5,14 @@ import Button from "@mui/material/Button";
 
 export default function PatientInformation(props) {
   const item = props.value;
-  // const handleClick = props.handleClick;
+  const handleRandomizedClick = (item) => {
+    item.status = "randomized";
+    props.handleRandomizedClick(item);
+  };
+  const handleInactiveClick = (item) => {
+    item.status = "inactive";
+    props.handleInactiveClick(item);
+  };
   return (
     <Grid
       container
@@ -75,12 +82,14 @@ export default function PatientInformation(props) {
                     marginTop: "10px",
                     borderRadius: "20px",
                   }}
+                  onClick={() => handleRandomizedClick(item)}
                 >
                   Randomized
                 </Button>
               </Grid>
 
               <Button
+                onClick={() => handleInactiveClick(item)}
                 variant="outlined"
                 sx={{
                   color: "#6e6d6d",
