@@ -4,6 +4,8 @@ import PatientInformation from "./PatientInformation";
 
 export default function PatientComponent(props) {
   const item = props.information;
+  const handleRandomizedClick = props.handleRandomizedClick;
+  const handleInactiveClick = props.handleInactiveClick;
 
   return (
     <Box sx={{ backgroundColor: "#FFF", border: 1, borderColor: "lightgrey" }}>
@@ -19,7 +21,12 @@ export default function PatientComponent(props) {
         Patient Details
       </Typography>
       {item.map((singular, index) => (
-        <PatientInformation key={index} value={singular} />
+        <PatientInformation
+          key={index}
+          value={singular}
+          handleInactiveClick={handleInactiveClick}
+          handleRandomizedClick={handleRandomizedClick}
+        />
       ))}
     </Box>
   );
